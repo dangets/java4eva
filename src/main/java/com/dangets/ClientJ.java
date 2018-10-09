@@ -14,6 +14,8 @@ public interface ClientJ {
     Call<UserDto> getUser();
 
 
+
+
     class UserDto {
         private int id;
         private String name;
