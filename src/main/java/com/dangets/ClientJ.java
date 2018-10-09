@@ -10,11 +10,6 @@ public interface ClientJ {
     @GET("users")
     Call<List<UserDto>> getAllUsers();
 
-    @GET("users/{id}")
-    Call<UserDto> getUser();
-
-
-
 
     class UserDto {
         private int id;
