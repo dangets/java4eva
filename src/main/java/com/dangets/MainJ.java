@@ -1,5 +1,7 @@
 package com.dangets;
 
+import com.dangets.clientj.ClientJ;
+import com.dangets.clientj.UserDto;
 import okhttp3.OkHttpClient;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -17,33 +19,10 @@ public class MainJ {
                 .client(okHttpClient)
                 .build();
 
-        //useClientJ(retrofit);
-        useClientK(retrofit);
+        useClientJ(retrofit);
 
         // shutdown retrofit/okhttp client for main to exit
         okHttpClient.dispatcher().executorService().shutdown();
-    }
-
-    private static void printResponse(Response<? extends Object> resp) {
-        if (!resp.isSuccessful()) {
-            System.err.println("unsuccessful response: " + resp.code());
-            System.err.println("body: " + resp.body());
-            return;
-        }
-
-        System.out.println(resp.body());
-    }
-
-    private static void useClientK(Retrofit baseRetrofit) throws IOException {
-        Retrofit retrofit = baseRetrofit.newBuilder()
-                .baseUrl("http://localhost:4567")
-                .addConverterFactory(JacksonConverterFactory.create(ClientK.Companion.getObjectMapper()))
-                .build();
-
-        ClientK k = retrofit.create(ClientK.class);
-
-        Response<List<ClientK.UserDto>> resp = k.getAllUsers().execute();
-        printResponse(resp);
     }
 
     private static void useClientJ(Retrofit baseRetrofit) throws IOException {
@@ -54,8 +33,18 @@ public class MainJ {
 
         ClientJ j = retrofit.create(ClientJ.class);
 
-        Response<List<ClientJ.UserDto>> resp = j.getAllUsers().execute();
+        Response<List<UserDto>> resp = j.getAllUsers().execute();
         printResponse(resp);
+    }
+
+    private static void printResponse(Response<?> resp) {
+        if (!resp.isSuccessful()) {
+            System.err.println("unsuccessful response: " + resp.code());
+            System.err.println("body: " + resp.body());
+            return;
+        }
+
+        System.out.println(resp.body());
     }
 }
 

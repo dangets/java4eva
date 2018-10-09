@@ -1,5 +1,6 @@
 package com.dangets
 
+import com.dangets.clientj.ClientJ
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
