@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class TheBasicsJ {
     public static void main(String[] args) {
+        var x = 10;
+        final var y = "foobar";
+
+
         final String greeting = "Hello";
         String who = "World";
         if (args.length > 0)
@@ -13,19 +17,26 @@ public class TheBasicsJ {
         System.out.println(greeting + ", " + who);
     }
 
+
+
     void doodle() {
+        var x = ImmutableMap.of();
         var m = ImmutableMap.of("up", "down");
         poodle(m);
 
-        kaboodle(m);
-        kaboodle(Map.of("cat", "dog"));
+        paddle(m);
+        paddle(Map.of("cat", "dog"));
     }
 
     void poodle(ImmutableMap<String, String> a) {
         // ...
     }
 
-    void kaboodle(Map<String, String> b) {
+    // Immutable
+    // No modifier methods
+    //   (put, clear, ...)
+
+    void paddle(Map<String, String> b) {
         b.put("yes", "no");
     }
 

@@ -19,11 +19,26 @@ public class MainJ {
                 .client(okHttpClient)
                 .build();
 
-        useClientJ(retrofit);
+        useClientK(retrofit);
 
         // shutdown retrofit/okhttp client for main to exit
         okHttpClient.dispatcher().executorService().shutdown();
     }
+
+
+
+    private static void useClientK(Retrofit baseRetrofit) throws IOException {
+        Retrofit retrofit = baseRetrofit.newBuilder()
+                .baseUrl("http://localhost:4567")
+                .addConverterFactory(JacksonConverterFactory.create(ClientJ.getObjectMapper()))
+                .build();
+
+        ClientK j = retrofit.create(ClientK.class);
+
+        Response<List<ClientK.UserDto>> resp = j.getAllUsers().execute();
+        printResponse(resp);
+    }
+
 
     private static void useClientJ(Retrofit baseRetrofit) throws IOException {
         Retrofit retrofit = baseRetrofit.newBuilder()
@@ -37,6 +52,9 @@ public class MainJ {
         printResponse(resp);
     }
 
+
+
+    /** helper function to print retrofit response body */
     private static void printResponse(Response<?> resp) {
         if (!resp.isSuccessful()) {
             System.err.println("unsuccessful response: " + resp.code());

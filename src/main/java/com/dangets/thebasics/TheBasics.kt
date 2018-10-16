@@ -2,6 +2,16 @@ package com.dangets.thebasics
 
 import java.time.LocalDate
 
+
+fun getGreeting(name: String): String {
+    val greeting = "Hello"
+    var who = "World"
+    if (name.isNotBlank())
+        who = name
+    return "$greeting, $who!"
+}
+
+
 fun main(args: Array<String>) {
     val greeting = "Hello"
     var who = "World"
